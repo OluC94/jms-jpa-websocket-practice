@@ -1,10 +1,11 @@
 package com.practice.jms_jpa_websocket_practice.repositories;
 
-import com.practice.jms_jpa_websocket_practice.entities.Customer;
-
 import java.util.List;
 
-public interface CustomerRepository {
+import com.practice.jms_jpa_websocket_practice.entities.Customer;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     List<Customer> findByLastName(String lastName);
 
