@@ -3,7 +3,6 @@ package com.practice.jms_jpa_websocket_practice.services;
 import com.practice.jms_jpa_websocket_practice.entities.Customer;
 import com.practice.jms_jpa_websocket_practice.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,8 +28,9 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public void deleteCustomer(long id){
+    public String deleteCustomer(long id){
         customerRepository.deleteById(id);
+        return "Customer with id: " + id + " deleted";
     }
 
 }
