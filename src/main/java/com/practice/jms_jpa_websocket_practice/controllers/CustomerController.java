@@ -18,10 +18,20 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
+    @GetMapping("/customers/{id}")
+    public Customer getCustomer(@PathVariable long id) {
+        return customerService.getCustomerById(id);
+    }
+
     @PostMapping("customer")
     public Customer createCustomer(@RequestParam String firstName, @RequestParam String lastName) {
         Customer customer = new Customer(firstName, lastName);
-        System.out.println("customer:" + customer);
+        // send message to artemis queue about the new customer
         return customerService.saveCustomer(customer);
+    }
+
+    @DeleteMapping("/customers/{id}")
+    public String deleteCustomer(@PathVariable long id) {
+        return customerService.deleteCustomer(id);
     }
 }
