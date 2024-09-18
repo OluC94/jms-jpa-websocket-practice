@@ -1,16 +1,19 @@
 package com.practice.jms_jpa_websocket_practice.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.practice.jms_jpa_websocket_practice.entities.Customer;
-import com.practice.jms_jpa_websocket_practice.repositories.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 
 
 public class Utils {
 
+    private Utils(){}
 
+    public static void sendNewCustomerMessage(JmsTemplate jmsTemplate, Customer customer) {
+        final String DESTINATION = "customer";
+
+        jmsTemplate.convertAndSend(DESTINATION, customer.toString());
+        System.out.println("New customer: " + customer);
+    }
 
 
 }
