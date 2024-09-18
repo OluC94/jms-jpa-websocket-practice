@@ -6,6 +6,8 @@ import org.springframework.jms.core.JmsTemplate;
 
 public class Utils {
 
+    private Utils(){}
+
     public static void sendNewCustomerMessage(JmsTemplate jmsTemplate, Customer customer) {
         final String DESTINATION = "customer";
 
