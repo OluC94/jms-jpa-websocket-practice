@@ -57,12 +57,12 @@ public class CustomerWebSocketHandler extends TextWebSocketHandler {
         session.sendMessage(new TextMessage(customerMap.toString()));
     }
 
-//    @Override
-//    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-//        if ("UPDATE".equals(message.getPayload())) {
-//            broadcastUpdatedCustomers();
-//        }
-//    }
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
+        if ("UPDATE".equals(message.getPayload())) {
+            broadcastUpdatedCustomers();
+        }
+    }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws IOException {
