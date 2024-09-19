@@ -18,6 +18,9 @@ public class CustomerController {
     @Autowired
     JmsTemplate jmsTemplate;
 
+    @Autowired
+    CustomerWebSocketHandler customerWebSocketHandler;
+
     @GetMapping("/customers")
     public List<Customer> getCustomers() {
         return customerService.getAllCustomers();
@@ -32,6 +35,7 @@ public class CustomerController {
     public Customer createCustomer(@RequestParam String firstName, @RequestParam String lastName) {
         Customer customer = new Customer(firstName, lastName);
         Utils.sendNewCustomerMessage(jmsTemplate, customer);
+//        customerWebSocketHandler.addCustomer(customer);
         return customerService.saveCustomer(customer);
     }
 
