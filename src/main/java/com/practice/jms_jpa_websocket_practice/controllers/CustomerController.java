@@ -35,9 +35,10 @@ public class CustomerController {
     @PostMapping("customer")
     public Customer createCustomer(@RequestParam String firstName, @RequestParam String lastName) throws IOException {
         Customer customer = new Customer(firstName, lastName);
-        Utils.sendNewCustomerMessage(jmsTemplate, customer);
-        Utils.updateWSCustomerMap(customerWebSocketHandler, customer);
-        return customerService.saveCustomer(customer);
+        Customer savedCustomer = customerService.saveCustomer(customer);
+        Utils.sendNewCustomerMessage(jmsTemplate, savedCustomer);
+        Utils.updateWSCustomerMap(customerWebSocketHandler, savedCustomer);
+        return savedCustomer;
     }
 
     @DeleteMapping("/customers/{id}")

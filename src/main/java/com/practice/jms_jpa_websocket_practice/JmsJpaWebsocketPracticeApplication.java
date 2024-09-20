@@ -24,7 +24,7 @@ public class JmsJpaWebsocketPracticeApplication {
 		return args -> {
 			customerRepository.save(new Customer("John", "Doe"));
 			customerRepository.save(new Customer("Jane", "Doe"));
-			customerRepository.save(new Customer("Harry", "Kane"));
+			customerRepository.save(new Customer("James", "Daniels"));
 			customerRepository.save(new Customer("Sarah", "Smith"));
 		};
 	}
