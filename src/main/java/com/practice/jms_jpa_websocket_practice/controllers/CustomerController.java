@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -17,6 +18,9 @@ public class CustomerController {
 
     @Autowired
     JmsTemplate jmsTemplate;
+
+    @Autowired
+    CustomerWebSocketHandler customerWebSocketHandler;
 
     @GetMapping("/customers")
     public List<Customer> getCustomers() {
@@ -29,10 +33,12 @@ public class CustomerController {
     }
 
     @PostMapping("customer")
-    public Customer createCustomer(@RequestParam String firstName, @RequestParam String lastName) {
+    public Customer createCustomer(@RequestParam String firstName, @RequestParam String lastName) throws IOException {
         Customer customer = new Customer(firstName, lastName);
-        Utils.sendNewCustomerMessage(jmsTemplate, customer);
-        return customerService.saveCustomer(customer);
+        Customer savedCustomer = customerService.saveCustomer(customer);
+        Utils.sendNewCustomerMessage(jmsTemplate, savedCustomer);
+        Utils.updateWSCustomerMap(customerWebSocketHandler, savedCustomer);
+        return savedCustomer;
     }
 
     @DeleteMapping("/customers/{id}")
