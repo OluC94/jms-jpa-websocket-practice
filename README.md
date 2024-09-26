@@ -5,5 +5,4 @@
 5. Connect an artemis receiver to listen to the "customer" destination 
 
 Next steps
-- WS - if a post is made before connecting, the most recent customer is duplicated and placed at the top
 - refactor - have all customer updates handled by one aggregator function
